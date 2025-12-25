@@ -44,7 +44,8 @@ with col1:
             va="center",
             fontsize=14,
             alpha=0.7,
-            transform=ax1.get_xaxis_transform()
+            transform=ax1.get_xaxis_transform(),
+            fontproperties=font_prop
         )
 
     # x の位置
@@ -52,7 +53,7 @@ with col1:
     ax1.text(x, 0.1, f"x = {x}", rotation=90, color="red")
 
     ax1.set_xscale("log")
-    ax1.set_xlabel("x（対数スケール）")
+    ax1.set_xlabel("x（対数スケール）",fontproperties=font_prop)
     ax1.set_title("📏 桁の感覚：log₁₀(x) は『桁の位置』を表す",fontproperties=font_prop,y=1.00)
     ax1.grid(True)
 
@@ -94,7 +95,7 @@ with col2:
 
     ax2.set_xlabel("t")
     ax2.set_ylabel("1/t")
-    ax2.set_title("📐 面積で理解する log：log(x) = ∫₁ˣ 1/t dt")
+    ax2.set_title("📐 面積で理解する log：log(x) = ∫₁ˣ 1/t dt",fontproperties=font_prop)
     ax2.grid(True)
 
     st.pyplot(fig2)
