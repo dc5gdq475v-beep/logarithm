@@ -2,7 +2,11 @@ import streamlit as st
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib
-import japanize_matplotlib
+from matplotlib import font_manager
+
+# Ricty Diminished Discord を読み込む
+font_manager.fontManager.addfont("fonts/RictyDiminishedDiscord-Regular.ttf")
+plt.rcParams["font.family"] = "Ricty Diminished Discord"
 matplotlib.use("Agg")
 
 st.set_page_config(page_title="見てわかる対数", layout="wide")
