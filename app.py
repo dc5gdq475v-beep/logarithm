@@ -35,7 +35,7 @@ with col1:
 
     # 桁帯の描画
     for i in range(len(boundaries) - 1):
-        ax1.axvspan(boundaries[i], boundaries[i+1], color=colors[i % len(colors)], alpha=0.5)
+        ax1.axvspan(boundaries[i], boundaries[i+1],  alpha=0.5)
         ax1.text(
             (boundaries[i] + boundaries[i+1]) / 2,
             0.5,
@@ -54,7 +54,7 @@ with col1:
 
     ax1.set_xscale("log")
     ax1.set_xlabel("x（対数スケール）",fontproperties=font_prop)
-    ax1.set_title("📏 桁の感覚：log₁₀(x) は『桁の位置』を表す",fontproperties=font_prop,y=1.00)
+    ax1.set_title("桁の感覚：log₁₀(x) は『桁の位置』を表す",fontproperties=font_prop)
     ax1.grid(True)
 
     st.pyplot(fig1)
@@ -95,7 +95,7 @@ with col2:
 
     ax2.set_xlabel("t")
     ax2.set_ylabel("1/t")
-    ax2.set_title("📐 面積で理解する log：log(x) = ∫₁ˣ 1/t dt",fontproperties=font_prop)
+    ax2.set_title("面積で理解する log：log(x) = ∫₁ˣ 1/t dt",fontproperties=font_prop)
     ax2.grid(True)
 
     st.pyplot(fig2)
