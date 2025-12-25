@@ -48,12 +48,12 @@ with col1:
         )
 
     # x の位置
-    ax1.axvline(x, color="black", linewidth=1)
-    ax1.text(x, 0.1, f"x = {x}", rotation=90, color="red")
+    ax1.axvline(x, color="red", linewidth=1)
+    ax1.text(x, 0.1, f"x = {x}", rotation=90, color="black")
 
     ax1.set_xscale("log")
-    ax1.set_xlabel("x は　１０の何乗か",fontproperties=font_prop)
-    ax1.set_title("桁の感覚：log₁₀(x) は『桁』を表す",fontproperties=font_prop)
+    ax1.set_xlabel("x は１０の何乗か",fontproperties=font_prop)
+    ax1.set_title("log10(x)",fontproperties=font_prop)
     ax1.grid(True)
 
     st.pyplot(fig1)
@@ -65,12 +65,6 @@ with col1:
     これは  
     **「x が 10 の何乗に近いか（何桁か）」**  
     を表しています。
-
-    xが 1〜9 → 1桁  
-    xが 10〜99 → 2桁  
-    xが 100〜999 → 3桁  
-
-    x がどの桁にあるかわかります。
     """)
 
 # ---------------------------------------------------------
