@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import matplotlib
 from matplotlib import font_manager
 
-# Ricty Diminished Discord を読み込む
+# Ricty Diminished Discord を読み込むg
 font_manager.fontManager.addfont("logarithm/fonts/RictyDiminishedDiscord-Regular.ttf")
 plt.rcParams["font.family"] = "Ricty Diminished Discord"
 matplotlib.use("Agg")
