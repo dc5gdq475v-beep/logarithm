@@ -31,7 +31,6 @@ with col1:
 
     # 桁の境界
     boundaries = [1, 10, 100, 1000, 10000]
-    colors = ["#f0f8ff", "#e6f7ff", "#e8ffe6", "#fff5e6"]
 
     # 桁帯の描画
     for i in range(len(boundaries) - 1):
@@ -54,7 +53,7 @@ with col1:
 
     ax1.set_xscale("log")
     ax1.set_xlabel("x（対数スケール）",fontproperties=font_prop)
-    ax1.set_title("桁の感覚：log₁₀(x) は『桁の位置』を表す",fontproperties=font_prop)
+    ax1.set_title("桁の感覚：log₁₀(x) は『桁』を表す",fontproperties=font_prop)
     ax1.grid(True)
 
     st.pyplot(fig1)
@@ -67,11 +66,11 @@ with col1:
     **「x が 10 の何乗に近いか（何桁か）」**  
     を表しています。
 
-    - 1〜9 → 1桁  
-    - 10〜99 → 2桁  
-    - 100〜999 → 3桁  
+    -xが 1〜9 → 1桁  
+    -xが 10〜99 → 2桁  
+    -xが 100〜999 → 3桁  
 
-    x の位置がどの桁帯にあるかが一目でわかります。
+    x がどの桁にあるかわかります。
     """)
 
 # ---------------------------------------------------------
@@ -111,5 +110,5 @@ with col2:
     - x が大きくなるほど面積は増える  
     - でも 1/t が小さくなるので増え方はゆっくり  
 
-    これが「対数はゆっくり増える」理由です。
+    これが対数は「大きい数はゆっくり増える、小さい数は急に増える」理由です。
     """)
