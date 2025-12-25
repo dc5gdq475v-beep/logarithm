@@ -2,7 +2,7 @@ import streamlit as st
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib
-from matplotlib import font_manager as fm
+import matplotlib.font_manager as fm
 
 # Ricty Diminished Discord を読み込む
 font_path = 'RictyDiminishedDiscord-Regular.ttf'
