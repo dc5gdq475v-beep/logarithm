@@ -2,11 +2,13 @@ import streamlit as st
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib
-from matplotlib import font_manager
+from matplotlib import font_manager as fm
 
-# Ricty Diminished Discord を読み込むg
-#font_manager.fontManager.addfont(r"logarithm/fonts/RictyDiminishedDiscord-Regular.ttf")
-plt.rcParams["font.family"] = "Ricty Diminished Discord"
+# Ricty Diminished Discord を読み込む
+font_path = 'Ricty Diminished Discord.ttf'
+font_prop = fm.FontProperties(fname=font_path)
+plt.rcParams['font.family'] = font_prop.get_file()
+
 matplotlib.use("Agg")
 
 st.set_page_config(page_title="見てわかる対数", layout="wide")
@@ -51,7 +53,7 @@ with col1:
 
     ax1.set_xscale("log")
     ax1.set_xlabel("x（対数スケール）")
-    ax1.set_title("📏 桁の感覚：log₁₀(x) は『桁の位置』を表す",fontfamily='Ricty Diminished Discord')
+    ax1.set_title("📏 桁の感覚：log₁₀(x) は『桁の位置』を表す",fontproperties=font_prop,y=1.00)
     ax1.grid(True)
 
     st.pyplot(fig1)
