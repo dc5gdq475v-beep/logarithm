@@ -51,7 +51,7 @@ with col1:
 
     ax1.set_xscale("log")
     ax1.set_xlabel("x（対数スケール）")
-    ax1.set_title("📏 桁の感覚：log₁₀(x) は『桁の位置』を表す")
+    ax1.set_title("📏 桁の感覚：log₁₀(x) は『桁の位置』を表す",fontfamily='Ricty Diminished Discord')
     ax1.grid(True)
 
     st.pyplot(fig1)
