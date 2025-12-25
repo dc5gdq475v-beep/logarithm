@@ -5,7 +5,7 @@ import matplotlib
 from matplotlib import font_manager as fm
 
 # Ricty Diminished Discord を読み込む
-font_path = 'Ricty Diminished Discord.ttf'
+font_path = 'RictyDiminishedDiscord-Regular.ttf'
 font_prop = fm.FontProperties(fname=font_path)
 plt.rcParams['font.family'] = font_prop.get_file()
 
