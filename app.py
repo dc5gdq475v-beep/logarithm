@@ -2,9 +2,9 @@ import streamlit as st
 import numpy as np
 import matplotlib.pyplot as plt
 
-st.set_page_config(page_title="見てわかる対数", layout="wide")
+st.set_page_config(page_title="対数とは", layout="wide")
 
-st.title("🔍 見てわかる対数（Log Visualizer）")
+st.title("対数（Log）")
 
 # スライダー
 a = st.slider("底 a を選んでください", min_value=2.0, max_value=10.0, value=2.0, step=0.1)
