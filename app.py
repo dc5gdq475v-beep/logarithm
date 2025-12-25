@@ -31,5 +31,5 @@ st.markdown(f"""
 ### 📝 対数の意味
 **log_{a}({x}) = {np.log(x)/np.log(a):.3f}**  
 これは「{a} を {np.log(x)/np.log(a):.3f} 回かけると {x} になる」という意味です。
-{a}の{Y_log}乗 = {x}
+{a}の{np.log(x)/np.log(a)}乗 = {x}
 """)
