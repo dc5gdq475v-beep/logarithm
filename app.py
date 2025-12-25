@@ -2,6 +2,7 @@ import streamlit as st
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib
+import japanize_matplotlib
 matplotlib.use("Agg")
 
 st.set_page_config(page_title="見てわかる対数", layout="wide")
