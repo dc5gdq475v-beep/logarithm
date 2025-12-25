@@ -4,9 +4,6 @@ import matplotlib.pyplot as plt
 
 st.set_page_config(page_title="見てわかる対数", layout="wide")
 
-# 日本語フォント設定（環境に合わせて変更）
-#plt.rcParams["font.family"] = "Noto Sans CJK JP"
-
 st.title("🔍 見てわかる対数（Log Visualizer）")
 
 # スライダー
