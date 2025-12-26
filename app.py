@@ -49,7 +49,7 @@ with col1:
 
     # x の位置
     ax1.axvline(x, color="red", linewidth=1)
-    ax1.text(x, 0.1, f"x = {x}",rotation=80,  color="black")
+    ax1.text(x, 0.1, f"x = {x}",rotation=80,  color="red")
 
     ax1.set_xscale("log")
     ax1.set_xlabel("x は１０の何乗か",fontproperties=font_prop)
@@ -83,8 +83,8 @@ with col2:
     ax2.fill_between(T, Y, color="skyblue", alpha=0.4)
 
     # x の位置
-    ax2.axvline(x, color="black", linestyle="--")
-    ax2.text(x, 1/x, f"x = {x}", rotation=90, color="red")
+    ax2.axvline(x, color="red", linestyle="--")
+    ax2.text(x, 1/x, f"x = {x}", rotation=80, color="red")
 
     ax2.set_xlabel("t")
     ax2.set_ylabel("1/t")
