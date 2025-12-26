@@ -28,6 +28,7 @@ col1, col2 = st.columns(2)
 # ---------------------------------------------------------
 with col1:
     fig1, ax1 = plt.subplots(figsize=(7, 5))
+    ax1.set_facecolor('#fff8e7')
 
     # 桁の境界
     boundaries = [1, 10, 100, 1000, 10000]
