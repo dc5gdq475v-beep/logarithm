@@ -48,8 +48,8 @@ with col1:
         )
 
     # x の位置
-    ax1.axvline(x, color="red",rotation=90, linewidth=1)
-    ax1.text(x, 0.1, f"x = {x}",  color="black")
+    ax1.axvline(x, color="red", linewidth=1)
+    ax1.text(x, 0.1, f"x = {x}",rotation=80,  color="black")
 
     ax1.set_xscale("log")
     ax1.set_xlabel("x は１０の何乗か",fontproperties=font_prop)
