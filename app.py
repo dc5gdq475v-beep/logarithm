@@ -35,7 +35,7 @@ with col1:
 
     # 桁帯の描画
     for i in range(len(boundaries) - 1):
-      #  ax1.axvspan(boundaries[i], boundaries[i+1],  alpha=0.1)
+        ax1.axvspan(boundaries[i], boundaries[i+1],  alpha=0.0)
         ax1.text(
             (boundaries[i] + boundaries[i+1]) / 2,
             0.5,
