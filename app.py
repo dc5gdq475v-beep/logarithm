@@ -20,6 +20,11 @@ st.title("🔍 対数")
 x = st.slider("値 x を選んでください", min_value=1, max_value=100000, value=256, step=1)
 b_int = st.slider("基数 b を選んでください（底）", min_value=2, max_value=36, value=10, step=1)
 
+# 表示オプション
+show_annotation = st.checkbox("グラフ内に注釈を表示する", value=True)
+max_ticks = st.slider("x軸に表示する目盛の最大数", min_value=4, max_value=20, value=8, step=1)
+use_latex_ticks = st.checkbox("目盛ラベルを LaTeX 風に表示する", value=False)
+
 # 計算
 logb_value = np.log(x) / np.log(b_int)
 ln_value = np.log(x)
@@ -72,20 +77,22 @@ with col1:
     ax1.set_yticks([])
 
     # 表示範囲の目安
-    x_min = max(0.9, min(1.0, x / 10.0))
     x_max = max(10.0, x * 10.0)
 
     # b^k の境界を作る（十分先まで）
     boundaries = []
+    exponents = []  # 各境界に対応する指数 k
     k = 0
     while True:
         val = (b_int ** k)
         if val > x_max * 10:
             break
         boundaries.append(val)
+        exponents.append(k)
         k += 1
     if len(boundaries) < 2:
         boundaries = [1.0, float(b_int)]
+        exponents = [0, 1]
 
     # ラベル重なり回避のための閾値（log10 空間での最小距離）
     min_log_dist = 0.12
@@ -134,11 +141,16 @@ with col1:
 
     # ticks と labels を作る（間引き）
     ticks = boundaries
-    # 自動間引き：最大表示数を 8 程度に制限
-    max_ticks = 8
+    exps = exponents
+    # 自動間引き：max_ticks を上限にする
     step = max(1, int(np.ceil(len(ticks) / max_ticks)))
     display_ticks = ticks[::step]
-    display_labels = [f"{b_int}^{i}" for i in range(0, len(ticks), step)]
+    display_exps = exps[::step]
+
+    if use_latex_ticks:
+        display_labels = [rf"${b_int}^{{{e}}}$" for e in display_exps]
+    else:
+        display_labels = [f"{b_int}^{e}" for e in display_exps]
 
     ax1.set_xticks(display_ticks)
     ax1.set_xticklabels(display_labels, fontsize=10, rotation=0, fontproperties=font_prop)
@@ -149,27 +161,28 @@ with col1:
     ax1.grid(True, which="both", ls="--", alpha=0.5)
 
     # --- グラフ内にプレーンテキスト注釈（左上） ---
-    k_val = logb_value
-    k_floor = int(np.floor(k_val))
-    k_frac = k_val - k_floor
-    r = (b_int ** k_frac)
-    text_lines = [
-        f"x ≈ {b_int}^{k_val:.4f}",
-        f"{x} = {b_int}^{k_floor} × {r:.4f}",
-        f"{b_int}進表記: {base_repr}"
-    ]
-    text_block = "\n".join(text_lines)
-    ax1.text(
-        0.02,
-        0.98,
-        text_block,
-        transform=ax1.transAxes,
-        fontsize=10,
-        va="top",
-        ha="left",
-        fontproperties=font_prop,
-        bbox=dict(facecolor="white", alpha=0.9, edgecolor="none", pad=6)
-    )
+    if show_annotation:
+        k_val = logb_value
+        k_floor = int(np.floor(k_val))
+        k_frac = k_val - k_floor
+        r = (b_int ** k_frac)
+        text_lines = [
+            f"x ≈ {b_int}^{k_val:.4f}",
+            f"{x} = {b_int}^{k_floor} × {r:.4f}",
+            f"{b_int}進表記: {base_repr}"
+        ]
+        text_block = "\n".join(text_lines)
+        ax1.text(
+            0.02,
+            0.98,
+            text_block,
+            transform=ax1.transAxes,
+            fontsize=10,
+            va="top",
+            ha="left",
+            fontproperties=font_prop,
+            bbox=dict(facecolor="white", alpha=0.9, edgecolor="none", pad=6)
+        )
 
     st.pyplot(fig1)
 
@@ -177,7 +190,7 @@ with col1:
     ### 📝 {b_int}進数における桁の数
     **log₍{b_int}₎({x}) = {logb_value:.6f}**
 
-    **{x} の {b_int} 進表記（）:**  
+    **{x} の {b_int} 進表記（整数部＋小数部6桁まで）:**  
     **{base_repr}**
     """)
 
@@ -215,7 +228,7 @@ with col2:
 st.markdown("""
 ---
 **調整可能な点(プログラム用)**
-- `max_ticks`（現在は 8）を変えると x 軸目盛の密度を調整できます。  
-- 注釈の行数やフォントサイズを減らせばさらにコンパクトにできます。  
-- 目盛ラベルを LaTeX 風にしたい場合は `display_labels = [rf"${b_int}^{{{i}}}$" ...]` に変更してください（環境によって見え方が変わります）。
+- `max_ticks`（UI スライダー）で x 軸目盛の密度を調整できます。  
+- 注釈のオン／オフで描画負荷と見た目を切り替えられます。  
+- LaTeX 風ラベルは見栄えが良いですが、環境によってはフォント差が出るのでプレーンテキストも選べます。
 """)
