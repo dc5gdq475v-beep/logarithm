@@ -17,7 +17,7 @@ st.title("🔍 見てわかる対数：整数底で桁を可視化（重なり�
 # -------------------------
 # ユーザー入力（整数底）
 # -------------------------
-x = st.slider("値 x を選んでください", min_value=0.1, max_value=10000.0, value=50.0, step=0.1)
+x = st.slider("値 x を選んでください", min_value=1.0, max_value=10000.0, value=50.0, step=1.0)
 b_int = st.slider("基数 b を選んでください（整数）", min_value=2, max_value=36, value=10, step=1)
 
 # 計算
@@ -107,7 +107,7 @@ with col1:
         mid_log = np.log10(mid)
         if last_label_logx == -1e9 or (mid_log - last_label_logx) >= min_log_dist:
             y_pos = stagger_y[stagger_idx % 2]
-            label = f"{i+1}桁（{b_int}進）"
+            label = f"{i+1}桁"#（{b_int}進）"
             ax1.text(
                 mid,
                 y_pos,
