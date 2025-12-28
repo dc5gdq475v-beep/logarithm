@@ -113,7 +113,7 @@ with col1:
         mid_log = np.log10(mid)
         if last_label_logx == -1e9 or (mid_log - last_label_logx) >= min_log_dist:
             y_pos = stagger_y[stagger_idx % 2]
-            label = f"{i+1}桁"
+            label = f"{i+1}乗"
             ax1.text(
                 mid,
                 y_pos,
