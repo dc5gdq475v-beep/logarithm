@@ -64,7 +64,7 @@ base_repr = f"{int_repr}.{frac_repr}_{b_int}" if x_frac > 0 else f"{int_repr}_{b
 col1, col2 = st.columns(2)
 
 # ---------------------------------------------------------
-# ① 桁の感覚（digit bands） with overlap avoidance
+# ① 桁の感覚（digit bands） with overlap avoidance + ticks as b^k
 # ---------------------------------------------------------
 with col1:
     fig1, ax1 = plt.subplots(figsize=(7, 5))
@@ -88,9 +88,7 @@ with col1:
         boundaries = [1.0, float(b_int)]
 
     # ラベル重なり回避のための閾値（log10 空間での最小距離）
-    # 値を小さくするとより多くラベルを表示する（0.08〜0.25 が実用域）
     min_log_dist = 0.12
-
     last_label_logx = -1e9
     stagger_y = [0.55, 0.25]  # 交互に配置する y 座標（軸変換を使う）
     stagger_idx = 0
@@ -107,7 +105,7 @@ with col1:
         mid_log = np.log10(mid)
         if last_label_logx == -1e9 or (mid_log - last_label_logx) >= min_log_dist:
             y_pos = stagger_y[stagger_idx % 2]
-            label = f"{i+1}桁"#（{b_int}進）"
+            label = f"{i+1}桁"
             ax1.text(
                 mid,
                 y_pos,
@@ -130,11 +128,48 @@ with col1:
     ax1.axvline(x, color="red", linewidth=1)
     ax1.text(x, 0.05, f"x = {x}", rotation=80, color="red", transform=ax1.get_xaxis_transform())
 
+    # 対数スケールと目盛（b^k 表記）
     ax1.set_xscale("log")
     ax1.set_xlim(left=boundaries[0]*0.9, right=boundaries[-1]*1.1)
+
+    # ticks と labels を作る（間引き）
+    ticks = boundaries
+    # 自動間引き：最大表示数を 8 程度に制限
+    max_ticks = 8
+    step = max(1, int(np.ceil(len(ticks) / max_ticks)))
+    display_ticks = ticks[::step]
+    display_labels = [f"{b_int}^{i}" for i in range(0, len(ticks), step)]
+
+    ax1.set_xticks(display_ticks)
+    ax1.set_xticklabels(display_labels, fontsize=10, rotation=0, fontproperties=font_prop)
+    ax1.tick_params(axis="x", which="major", pad=8)
+
     ax1.set_xlabel(f"x は {b_int} の何乗か", fontproperties=font_prop)
     ax1.set_title(f"log_{b_int}(x) = {logb_value:.6f}", fontproperties=font_prop)
     ax1.grid(True, which="both", ls="--", alpha=0.5)
+
+    # --- グラフ内にプレーンテキスト注釈（左上） ---
+    k_val = logb_value
+    k_floor = int(np.floor(k_val))
+    k_frac = k_val - k_floor
+    r = (b_int ** k_frac)
+    text_lines = [
+        f"x ≈ {b_int}^{k_val:.4f}",
+        f"{x} = {b_int}^{k_floor} × {r:.4f}",
+        f"{b_int}進表記: {base_repr}"
+    ]
+    text_block = "\n".join(text_lines)
+    ax1.text(
+        0.02,
+        0.98,
+        text_block,
+        transform=ax1.transAxes,
+        fontsize=10,
+        va="top",
+        ha="left",
+        fontproperties=font_prop,
+        bbox=dict(facecolor="white", alpha=0.9, edgecolor="none", pad=6)
+    )
 
     st.pyplot(fig1)
 
@@ -180,7 +215,7 @@ with col2:
 st.markdown("""
 ---
 **調整可能な点**
-- `min_log_dist` を小さくするとより多くの桁ラベルを表示します。大きくすると間引きが強くなります。  
-- `stagger_y` の値を変えるとラベルの縦位置を調整できます。  
-- ラベルを完全に重ねないようにするには `adjustText` ライブラリを使う方法もあります（追加インストールが必要）。
+- `max_ticks`（現在は 8）を変えると x 軸目盛の密度を調整できます。  
+- 注釈の行数やフォントサイズを減らせばさらにコンパクトにできます。  
+- 目盛ラベルを LaTeX 風にしたい場合は `display_labels = [rf"${b_int}^{{{i}}}$" ...]` に変更してください（環境によって見え方が変わります）。
 """)
