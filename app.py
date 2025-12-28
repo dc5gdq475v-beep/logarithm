@@ -17,13 +17,14 @@ st.title("🔍 対数")
 # -------------------------
 # ユーザー入力（整数底）
 # -------------------------
-x = st.slider("値 x を選んでください", min_value=1, max_value=100000, value=256, step=1)
+x = st.slider("値 x を選んでください", min_value=1, max_value=10000, value=256, step=1)
 b_int = st.slider("基数 b を選んでください（底）", min_value=2, max_value=36, value=10, step=1)
 
 # 表示オプション
 show_annotation = st.checkbox("グラフ内に注釈を表示する", value=True)
-max_ticks = st.slider("x軸に表示する目盛の最大数", min_value=4, max_value=20, value=8, step=1)
-use_latex_ticks = st.checkbox("目盛ラベルを LaTeX 風に表示する", value=False)
+
+# 固定の目盛最大数（UI で選べないように固定）
+max_ticks = 8
 
 # 計算
 logb_value = np.log(x) / np.log(b_int)
@@ -142,15 +143,13 @@ with col1:
     # ticks と labels を作る（間引き）
     ticks = boundaries
     exps = exponents
-    # 自動間引き：max_ticks を上限にする
+    # 自動間引き：max_ticks を上限にする（固定）
     step = max(1, int(np.ceil(len(ticks) / max_ticks)))
     display_ticks = ticks[::step]
     display_exps = exps[::step]
 
-    if use_latex_ticks:
-        display_labels = [rf"${b_int}^{{{e}}}$" for e in display_exps]
-    else:
-        display_labels = [f"{b_int}^{e}" for e in display_exps]
+    # プレーンテキストラベル（例: "10^2"）
+    display_labels = [f"{b_int}^{e}" for e in display_exps]
 
     ax1.set_xticks(display_ticks)
     ax1.set_xticklabels(display_labels, fontsize=10, rotation=0, fontproperties=font_prop)
@@ -228,7 +227,6 @@ with col2:
 st.markdown("""
 ---
 **調整可能な点(プログラム用)**
-- `max_ticks`（UI スライダー）で x 軸目盛の密度を調整できます。  
-- 注釈のオン／オフで描画負荷と見た目を切り替えられます。  
-- LaTeX 風ラベルは見栄えが良いですが、環境によってはフォント差が出るのでプレーンテキストも選べます。
+- 目盛の最大数を変更したい場合は `max_ticks` の値を直接書き換えてください（現在は 8 に固定）。  
+- 注釈のオン／オフで描画負荷と見た目を切り替えられます。
 """)
