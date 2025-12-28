@@ -17,8 +17,8 @@ st.title("🔍 見てわかる対数：整数底で桁を可視化（重なり�
 # -------------------------
 # ユーザー入力（整数底）
 # -------------------------
-x = st.slider("値 x を選んでください", min_value=1.0, max_value=10000.0, value=50.0, step=1.0)
-b_int = st.slider("基数 b を選んでください（整数）", min_value=2, max_value=36, value=10, step=1)
+x = st.slider("値 x を選んでください", min_value=1, max_value=100000, value=256, step=1)
+b_int = st.slider("基数 b を選んでください（底）", min_value=2, max_value=36, value=10, step=1)
 
 # 計算
 logb_value = np.log(x) / np.log(b_int)
@@ -177,7 +177,7 @@ with col1:
     ### 📝 {b_int}進数における桁の意味
     **log₍{b_int}₎({x}) = {logb_value:.6f}**
 
-    **{x} の {b_int} 進表記（整数部＋小数部6桁まで）:**  
+    **{x} の {b_int} 進表記（）:**  
     **{base_repr}**
     """)
 
@@ -214,7 +214,7 @@ with col2:
 
 st.markdown("""
 ---
-**調整可能な点**
+**調整可能な点(プログラム用)**
 - `max_ticks`（現在は 8）を変えると x 軸目盛の密度を調整できます。  
 - 注釈の行数やフォントサイズを減らせばさらにコンパクトにできます。  
 - 目盛ラベルを LaTeX 風にしたい場合は `display_labels = [rf"${b_int}^{{{i}}}$" ...]` に変更してください（環境によって見え方が変わります）。
