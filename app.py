@@ -11,8 +11,8 @@ plt.rcParams['font.family'] = font_prop.get_name()
 
 matplotlib.use("Agg")
 
-st.set_page_config(page_title="見てわかる対数（任意整数底）", layout="wide")
-st.title("🔍 見てわかる対数：整数底で桁を可視化（重なり回避付き）")
+st.set_page_config(page_title="対数（任意整数底）", layout="wide")
+st.title("🔍 対数")
 
 # -------------------------
 # ユーザー入力（整数底）
@@ -174,7 +174,7 @@ with col1:
     st.pyplot(fig1)
 
     st.markdown(f"""
-    ### 📝 {b_int}進数における桁の意味
+    ### 📝 {b_int}進数における桁の数
     **log₍{b_int}₎({x}) = {logb_value:.6f}**
 
     **{x} の {b_int} 進表記（）:**  
