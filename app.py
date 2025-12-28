@@ -166,8 +166,8 @@ with col1:
         k_frac = k_val - k_floor
         r = (b_int ** k_frac)
         text_lines = [
-            f"x ≈ {b_int}^{k_val:.4f}",
-            f"{x} = {b_int}^{k_floor} × {r:.4f}",
+            f"{x} ≈ {b_int}^{k_val:.4f}",
+            #f"{x} = {b_int}^{k_floor} × {r:.4f}",
             f"{b_int}進表記: {base_repr}"
         ]
         text_block = "\n".join(text_lines)
